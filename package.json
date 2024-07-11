@@ -13,9 +13,11 @@
     "babel-preset-react": "*",
     "gh-pages": "^6.1.1",
     "webpack": "^2.0"
-  },
+  },"homepage": "https://{your-username}.github.io/{your-repo-name}",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack -w"
+    "watch": "webpack -w" ,
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
