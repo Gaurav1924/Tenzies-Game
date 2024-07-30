@@ -1,25 +1,36 @@
+const path = require('path');
+
 module.exports = {
-  "output": {
-    "filename": "[name].pack.js"
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
+    publicPath: '/Tenzies-Game/'
   },
-  "module": {
-    "rules": [
+  module: {
+    rules: [
       {
-        "use": {
-          "loader": "babel-loader",
-          "options": {
-            "presets": [
-              "babel-preset-env",
-              "babel-preset-react"
-            ]
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
           }
-        },
-        "exclude": /node_modules/,
-        "test": /\.js$/
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-  "entry": {
-    "index": "./index"
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'build'),
+    compress: true,
+    port: 9000
   }
 };
