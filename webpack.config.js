@@ -1,36 +1,37 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // Install this if using
 
 module.exports = {
-  entry: './src/index.js',
+  mode : "development" ,
+  entry: './src/index.js', // Entry point for your application
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '/Tenzies-Game/'
+    path: path.resolve(__dirname, 'build'), // Output directory
+    filename: 'bundle.js', // Output file name
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/, // Apply Babel to .js files
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        test: /\.css$/, // Apply CSS loaders
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'build'),
-    compress: true,
-    port: 9000
-  }
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html', // Reference the HTML file
+    }),
+  ],
 };
